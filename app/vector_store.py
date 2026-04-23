@@ -1,14 +1,20 @@
 from embeddings import EmbeddingModel
 import torch
 import faiss
+
+# VectorStore class to manage FAISS index and perform search operations
 class VectorStore:
     def __init__(self):
+        """ Setting a default threshold for search results and 
+        initializing the embedding model, index, dimension, and texts"""
+
         self.threshold = 0.3
         self.embedding_model = EmbeddingModel()
         self.index = None
         self.dimension = None
         self.texts = []
     def build_index(self, embeddings , texts):
+        # Validating input and building the FAISS index with the provided embeddings and texts
         if isinstance(embeddings, torch.Tensor):
             embeddings = embeddings.cpu().numpy().astype("float32")
         if embeddings is None or len(embeddings.shape) != 2 or embeddings.shape[0] == 0:
@@ -21,14 +27,17 @@ class VectorStore:
             raise TypeError("The List contains other data types than string")
         if len(embeddings) != len(texts):
             raise ValueError("Arguments are diffrent sizes")
+        
         self.texts = texts
-            
         self.dimension = embeddings.shape[1]
 
         self.index = faiss.IndexFlatIP(self.dimension)
         self.index.add(embeddings)
-
+    #search method to perform similarity search on the FAISS index using the provided query and return results above the threshold
     def search(self, query, k):
+        #Validating input
+        if k > len(self.texts):
+            raise ValueError("k is bigger than the number of texts in the index")
         if self.index is None:
             raise ValueError("Index not built")
         if isinstance(query, str):
@@ -40,11 +49,10 @@ class VectorStore:
             raise TypeError("Wrong query format") 
         
         embedded_query = self.embedding_model.encode(query)
-        embedded_query = embedded_query.cpu().numpy().astype("float32")
         distances, indices = self.index.search(embedded_query, k)
         
         all_results = []
-        for q_idx, idx_row in enumerate(indices):
+        for q_idx, idx_row in enumerate(indices): 
             results = []
             for rank, (i, score) in enumerate(zip(idx_row,distances[q_idx])):
                 if score > self.threshold:

@@ -9,17 +9,23 @@ class EmbeddingModel:
     def __init__(self, model_name: str = "all-MiniLM-L6-v2",batch_size: int=32):
         # Initialize the SentenceTransformer model
         self.model = SentenceTransformer(model_name)
+
         # Set the batch size for embedding
         self.batch_size = batch_size
+
         # Set up logging
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
+
         # Create a stream handler for logging
         self.handler = logging.StreamHandler()
+
         # Define a formatter for the log messages
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
         # Apply the formatter to the handler
         self.handler.setFormatter(self.formatter)
+
         # Add the handler to the logger if it doesn't already have handlers
         if not self.logger.hasHandlers():
             self.logger.addHandler(self.handler)
@@ -39,6 +45,7 @@ class EmbeddingModel:
         embeddings = self.model.encode(texts, convert_to_tensor=True,batch_size=self.batch_size)
         embeddings = torch.nn.functional.normalize(embeddings,dim = 1,p= 2)
         end_time = time.perf_counter()
+        
         # Calculating elapsed time and logging the embedding process
         elapsed_time = end_time - start_time
         self.logger.info(f"Embedding completed | texts ={len(texts)} | time={elapsed_time:.4f}s")

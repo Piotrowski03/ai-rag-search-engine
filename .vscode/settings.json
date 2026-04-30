@@ -1,3 +1,24 @@
 {
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": false,
+                    "requestCert": false
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "vector-db-books-jokkp11-cba0.i.aivencloud.com",
+            "port": 16794,
+            "sshOptions": {
+                "port": 22
+            },
+            "driver": "PostgreSQL",
+            "database": "defaultdb",
+            "username": "avnadmin",
+            "name": "rag_db",
+        }
+    ]
 }

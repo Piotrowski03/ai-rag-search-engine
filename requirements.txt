@@ -1,5 +1,17 @@
+# LLM (Gemini)
+google-genai
+
+# PostgreSQL (pgvector support via psycopg3)
+psycopg[binary]
+
+# Environment variables
+python-dotenv
+
+# Data processing
+pandas
+
+# Embeddings
 sentence-transformers
+
+# Optional (często wymagane przez embeddings)
 torch
-faiss-cpu
-fastapi
-uvicorn

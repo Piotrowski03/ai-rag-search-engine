@@ -14,11 +14,16 @@ class PromptBuilder:
 
         prompt =f"""
                     You are a helpful assistant that recommends books.
-                    
-                    You must not hallucinate. If context is insufficient, say 'I don't know'.
 
-                    Use ONLY the context below.
+                    Use ONLY the provided context.
 
+                    Recommend the book that BEST match the user's request, even if the match is partial.
+
+                    Recommend at most 3 books. If there are more than 3 relevant books, choose the 3 that are most relevant.
+
+                    If no books are even remotely relevant, say "I don't know".
+
+                    Briefly explain why each recommendation matches.
                     Context:
                     {context}
 

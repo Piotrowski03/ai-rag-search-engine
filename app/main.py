@@ -6,7 +6,7 @@ from app.promptbuilder import PromptBuilder
 from app.llmclient import LLMClient
 from app.orchestrator import RAGOrchestrator
 
-
+# Main function to run the RAG system. It initializes the vector store, prompt builder, and LLM client
 def main():
     # 🔹 ścieżka do .env
     dotenv_path = os.path.join(os.path.dirname(__file__),"..", ".env")

@@ -1,5 +1,8 @@
 
 
+# PromptBuilder is responsible for constructing the prompt that will be sent to the LLM.
+# It takes the user query and the retrieved documents, formats them into a coherent prompt,
+# and ensures that the LLM has all the necessary information to generate a relevant answer.
 class PromptBuilder:
     def __init__(self):
         pass

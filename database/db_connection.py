@@ -2,6 +2,8 @@ import psycopg
 import os
 from dotenv import load_dotenv
 
+
+#Class for connecting with database and communicating with it
 class DBConnector:
     def __init__(self, dotenv_path):
         load_dotenv(dotenv_path)
@@ -25,7 +27,10 @@ class DBConnector:
     def close_connection(self):
         if self.conn:
             self.conn.close()
-    def query(self, query, args=None):
+
+    def select_query(self, query, args=None):
+        if not self.conn:
+            raise Exception("Database connection is not established.")
         with self.conn.cursor() as cursor:
             cursor.execute(query, args)
             return cursor.fetchall()
@@ -40,6 +45,8 @@ class DBConnector:
     def add_data(self, data):
         if not self.conn:
             raise Exception("Database connection is not established.")
+        
+        
         query = """INSERT INTO books (title, description, embedding) 
         VALUES (%(title)s, %(description)s, %(embedding_vector)s) ON CONFLICT (title) DO NOTHING;"""
         try:

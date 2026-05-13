@@ -3,7 +3,10 @@ from app.llmclient import LLMClient
 from app.vector_store import VectorStore
 from app.promptbuilder import PromptBuilder
 
+# RAGOrchestrator is the main orchestrator class that coordinates the vector store,
+# prompt builder, and LLM client to execute the RAG process. It takes a user query, retrieves relevant documents, builds a prompt, and generates an answer using the LLM.
 class RAGOrchestrator:
+    
     def __init__(self, vector_store, prompt_builder, llm_client):
         self.vector_store = vector_store
         self.prompt_builder = prompt_builder

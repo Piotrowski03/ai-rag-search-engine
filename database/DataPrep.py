@@ -1,5 +1,6 @@
 import pandas as pd
 
+#Class for Loading and cleaning the data
 class DataPreparator:
     def __init__(self):
         pass

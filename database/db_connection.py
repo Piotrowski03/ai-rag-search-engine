@@ -59,6 +59,7 @@ class DBConnector:
                 self.execute_query(query, params)
                 print(f"Data inserted successfully for title: {item['book_name']}")
             self.conn.commit()
+            self.close_connection()
         except Exception as e:
             self.conn.rollback()
             print(f"Error inserting data: {e}")

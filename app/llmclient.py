@@ -10,7 +10,6 @@ class LLMClient:
         load_dotenv(dotenv_path)
         api_key = os.getenv('GEMINI_API_KEY')
 
-        print(api_key)
         if not api_key:
             raise Exception('GEMINI_API_KEY environment variable is not set')
         

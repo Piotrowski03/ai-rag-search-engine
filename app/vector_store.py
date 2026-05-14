@@ -12,8 +12,6 @@ class VectorStore:
         self.embedding_model = EmbeddingModel()
         self.db_connector = DBConnector(dotenv_path)
     def search(self, query, k = 10):
-        if not isinstance(query, str)or not query.strip():
-            raise TypeError("Wrong query format, query should be a non-empty string")
         query_embedding = self.embedding_model.encode([query])
         sql_query = """
                     SELECT title, description
